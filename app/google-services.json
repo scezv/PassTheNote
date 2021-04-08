@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "738329667769",
+    "project_id": "passthenote-2bf28",
+    "storage_bucket": "passthenote-2bf28.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738329667769:android:1f66c099598c636561d368",
+        "android_client_info": {
+          "package_name": "com.example.passthenote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "738329667769-3tnvfpumao4i2cr5hcubik1211njic64.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgCIcqBsdEFkbNqZrzHcGzi1dh9t-JtDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "738329667769-3tnvfpumao4i2cr5hcubik1211njic64.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
