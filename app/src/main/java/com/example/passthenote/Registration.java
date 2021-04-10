@@ -33,6 +33,7 @@ public class Registration extends AppCompatActivity {
         registerButton = findViewById(R.id.registerButton);
         fAuth = FirebaseAuth.getInstance();
 
+        // takes back to login page
         returnToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +41,7 @@ public class Registration extends AppCompatActivity {
                 finish();
             }
         });
-
+        // click listener on register button
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
