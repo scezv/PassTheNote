@@ -4,4 +4,10 @@
     <item
         android:id="@+id/resetPassword"
         android:title="Reset Password" />
+    <item
+        android:id="@+id/updateEmailMenu"
+        android:title="Update E-mail Address" />
+    <item
+        android:id="@+id/logoutAccount"
+        android:title="Logout" />
 </menu>
