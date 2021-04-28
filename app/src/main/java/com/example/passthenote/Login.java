@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
-    Button registerButtonInLogin, loginButton, resetPassBtn;
+    Button registerButtonInLogin, loginButton, resetPassBtn, anonLogin;
     EditText userEmail, password;
     FirebaseAuth firebaseAuth;
     //FirebaseUser user;
@@ -33,6 +34,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        anonLogin = findViewById(R.id.anonLoginBtn);
         //user = firebaseAuth.getCurrentUser();
         reset_alert = new AlertDialog.Builder(this);
         inflater = this.getLayoutInflater();
@@ -66,7 +68,7 @@ public class Login extends AppCompatActivity {
                 firebaseAuth.signInWithEmailAndPassword(userEmail.getText().toString(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ChooseOption.class));
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -76,6 +78,14 @@ public class Login extends AppCompatActivity {
                         resetPassBtn.setVisibility(View.VISIBLE);
                     }
                 });
+            }
+        });
+
+        anonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Splash.class));
+                finish();
             }
         });
 
@@ -123,7 +133,7 @@ public class Login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), ChooseOption.class));
             finish();
         }
     }

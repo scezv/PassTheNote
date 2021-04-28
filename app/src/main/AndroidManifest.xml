@@ -9,17 +9,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PassTheNote">
-        <activity android:name=".contentsNotes" android:theme="@style/Theme.NoActionBar">
+        <activity android:name=".Splash" android:theme="@style/Theme.PassTheNote.NoActionBar">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".ResetPassword" />
+        <activity android:name=".ChooseOption" android:theme="@style/Theme.PassTheNote.NoActionBar"/>
+        <activity
+            android:name=".EditNote"
+            android:theme="@style/Theme.PassTheNote.NoActionBar" />
+        <activity
+            android:name=".AddNewNote"
+            android:parentActivityName=".notesMain"
+            android:theme="@style/Theme.PassTheNote.NoActionBar" />
+        <activity
+            android:name=".notesMain"
+            android:launchMode="singleTop" >
+        </activity>
+        <activity
+            android:name=".AddNote"
+            android:label="@string/title_activity_add_note"
+            android:theme="@style/Theme.PassTheNote.NoActionBar" />
+        <activity
+            android:name=".DetailsNote"
+            android:label="@string/title_activity_details_note"
+            android:theme="@style/Theme.PassTheNote.NoActionBar" />
+        <activity
+            android:name=".contentsNotes"
+            android:theme="@style/Theme.NoActionBar" />
+        <activity android:name=".ResetPassword"
+            android:theme="@style/Theme.PassTheNote.NoActionBar"
+            android:parentActivityName=".notesMain"/>
         <activity android:name=".Registration" />
-        <activity android:name=".Login">
-        </activity>
+        <activity android:name=".Login" />
         <activity android:name=".MainActivity" />
     </application>
 
