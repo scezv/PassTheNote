@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/passNav"
-        android:title="Password Manager"/>
+        android:id="@+id/switchManager"
+        android:title="Switch Manager"/>
     <item
         android:id="@+id/resetPassword"
         android:title="Reset Password" />

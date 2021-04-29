@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddNewNote">
+    tools:context=".AddNewPass">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             app:popupTheme="@style/Theme.PassTheNote.PopupOverlay">
 
             <EditText
-                android:id="@+id/add_note_title"
+                android:id="@+id/add_pass_platform"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/transparent"
@@ -41,7 +41,7 @@
         android:background="@color/yellow"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:context=".AddNewNote">
+        tools:context=".AddNewPass">
 
         <EditText
             android:id="@+id/sadd_note_title"
@@ -52,22 +52,11 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/add_note_description"
+            android:id="@+id/add_pass_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Description"
+            android:hint="Password"
             android:inputType="textMultiLine" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Priority"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <NumberPicker
-            android:id="@+id/add_note_number_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

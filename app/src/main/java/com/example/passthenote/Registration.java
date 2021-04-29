@@ -75,7 +75,7 @@ public class Registration extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         // send user to dashboard
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), EmailVerification.class));
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {

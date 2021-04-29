@@ -32,7 +32,6 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         firebaseAuth = FirebaseAuth.getInstance();
         anonLogin = findViewById(R.id.anonLoginBtn);
         //user = firebaseAuth.getCurrentUser();
@@ -68,8 +67,8 @@ public class Login extends AppCompatActivity {
                 firebaseAuth.signInWithEmailAndPassword(userEmail.getText().toString(), password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        startActivity(new Intent(getApplicationContext(), ChooseOption.class));
-                        finish();
+                            startActivity(new Intent(getApplicationContext(), EmailVerification.class));
+                            finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -133,7 +132,7 @@ public class Login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), ChooseOption.class));
+            startActivity(new Intent(getApplicationContext(), EmailVerification.class));
             finish();
         }
     }

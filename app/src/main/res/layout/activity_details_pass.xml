@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsNote">
+    tools:context=".DetailsPass">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             app:popupTheme="@style/Theme.PassTheNote.PopupOverlay">
 
             <TextView
-                android:id="@+id/noteDetailsTitle"
+                android:id="@+id/passDetailsPlatform"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -35,7 +35,7 @@
     <include layout="@layout/content_details_pass" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/editNoteButton"
+        android:id="@+id/editPassButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

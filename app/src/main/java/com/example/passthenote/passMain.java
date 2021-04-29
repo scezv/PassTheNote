@@ -1,84 +1,74 @@
 package com.example.passthenote;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.passthenote.model.NoteAdapter;
 import com.example.passthenote.model.NoteTransfer;
+import com.example.passthenote.model.PassAdapter;
+import com.example.passthenote.model.PassTransfer;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class notesMain extends AppCompatActivity{
+public class passMain extends AppCompatActivity {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //private DocumentReference notebookRef = db.collection("Notebook").document(user.getUid()).collection("myNotes").orderBy();
-    private NoteAdapter adapter;
+    private PassAdapter passAdapter;
     AlertDialog.Builder reset_alert;
     LayoutInflater inflater;
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notes_main);
-        firebaseAuth = FirebaseAuth.getInstance();
-        FloatingActionButton buttonAddNote = findViewById(R.id.addNoteButton);
+        setContentView(R.layout.activity_pass_main);
+        FloatingActionButton buttonAddPass = findViewById(R.id.addPassButton);
         reset_alert = new AlertDialog.Builder(this);
         inflater = this.getLayoutInflater();
-        buttonAddNote.setOnClickListener(new View.OnClickListener() {
+        buttonAddPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AddNewNote.class));
-                finish();
+                startActivity(new Intent(getApplicationContext(), AddNewPass.class));
             }
         });
         setUpRecyclerView();
+        setUpRecyclerView();
     }
-    private void setUpRecyclerView() {
-        Query query = db.collection("Notebook").document(user.getUid()).collection("myNotes").orderBy("priority", Query.Direction.DESCENDING);
 
-        FirestoreRecyclerOptions<NoteTransfer> options = new FirestoreRecyclerOptions.Builder<NoteTransfer>()
-                .setQuery(query, NoteTransfer.class)
+    private void setUpRecyclerView() {
+        Query query = db.collection("Passbook").document(user.getUid()).collection("myPassword");
+        FirestoreRecyclerOptions<PassTransfer> options = new FirestoreRecyclerOptions.Builder<PassTransfer>()
+                .setQuery(query, PassTransfer.class)
                 .build();
 
-        adapter = new NoteAdapter(options);
-
+        passAdapter = new PassAdapter(options);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(passAdapter);
 
         // swipe to delete from recycler view
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
@@ -90,14 +80,14 @@ public class notesMain extends AppCompatActivity{
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                adapter.deleteItem(viewHolder.getAdapterPosition());
+                passAdapter.deleteItem(viewHolder.getAdapterPosition());
             }
         }).attachToRecyclerView(recyclerView);
 
-        adapter.setOnItemClickListener(new NoteAdapter.OnItemClickListener() {
+        passAdapter.setOnItemClickListener(new PassAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                NoteTransfer note = documentSnapshot.toObject(NoteTransfer.class);
+                PassTransfer note = documentSnapshot.toObject(PassTransfer.class);
                 String id = documentSnapshot.getId();
                 //final String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
                 String path = documentSnapshot.getReference().getPath();
@@ -106,7 +96,6 @@ public class notesMain extends AppCompatActivity{
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -116,12 +105,12 @@ public class notesMain extends AppCompatActivity{
     // menu selection on three dots
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // takes to password update password
+
         if(item.getItemId() == R.id.switchManager){
             startActivity(new Intent(getApplicationContext(), ChooseOption.class));
             finish();
         }
-
-        // takes to password update password
         if(item.getItemId() == R.id.resetPassword){
             startActivity(new Intent(getApplicationContext(), ResetPassword.class));
             finish();
@@ -149,12 +138,12 @@ public class notesMain extends AppCompatActivity{
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
                                     firebaseAuth.getCurrentUser().updateEmail(email.getText().toString());
-                                    Toast.makeText(notesMain.this, "E-mail Updated", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(passMain.this, "E-mail Updated", Toast.LENGTH_LONG).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(notesMain.this, "Password Incorrect", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(passMain.this, "Password Incorrect", Toast.LENGTH_LONG).show();
                                 }
                             });
                         }
@@ -193,7 +182,7 @@ public class notesMain extends AppCompatActivity{
                     public void onClick(DialogInterface dialog, int which) {
                         //ToDo: delete all the notes created by the logged in user
                         //ToDo: delete the anon user
-                       // FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        // FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -209,13 +198,12 @@ public class notesMain extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
-        adapter.startListening();
+        passAdapter.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        adapter.stopListening();
+        passAdapter.stopListening();
     }
-
 }
