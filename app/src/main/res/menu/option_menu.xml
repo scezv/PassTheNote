@@ -6,7 +6,7 @@
         android:title="Switch Manager"/>
     <item
         android:id="@+id/resetPassword"
-        android:title="Reset Password" />
+        android:title="Change Password" />
     <item
         android:id="@+id/updateEmailMenu"
         android:title="Update E-mail Address" />

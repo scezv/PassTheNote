@@ -112,44 +112,52 @@ public class passMain extends AppCompatActivity {
             finish();
         }
         if(item.getItemId() == R.id.resetPassword){
-            startActivity(new Intent(getApplicationContext(), ResetPassword.class));
-            finish();
+            if(!firebaseAuth.getCurrentUser().isAnonymous()) {
+                startActivity(new Intent(getApplicationContext(), ResetPassword.class));
+                finish();
+            } else {
+                Toast.makeText(passMain.this,"You are using a temporary account so this feature cannot be used", Toast.LENGTH_SHORT).show();
+            }
         }
         // updates e-mail on the record
         if(item.getItemId() == R.id.updateEmailMenu){
-            View view = inflater.inflate(R.layout.update_email, null);
-            reset_alert.setTitle("Update E-mail Address?")
-                    .setMessage("Enter the E-mail Address you want to change to")
-                    .setPositiveButton("Update", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // validate email of the user
-                            EditText email = view.findViewById(R.id.updateEmail);
-                            if(email.getText().toString().isEmpty()){
-                                email.setError("Required Field");
-                                return;
+            if(!firebaseAuth.getCurrentUser().isAnonymous()) {
+                View view = inflater.inflate(R.layout.update_email, null);
+                reset_alert.setTitle("Update E-mail Address?")
+                        .setMessage("Enter the E-mail Address you want to change to")
+                        .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // validate email of the user
+                                EditText email = view.findViewById(R.id.updateEmail);
+                                if (email.getText().toString().isEmpty()) {
+                                    email.setError("Required Field");
+                                    return;
+                                }
+                                // validate password of the user
+                                EditText password = view.findViewById(R.id.updateEmailPass);
+
+                                String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+                                firebaseAuth.signInWithEmailAndPassword(userEmail, password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                    @Override
+                                    public void onSuccess(AuthResult authResult) {
+                                        firebaseAuth.getCurrentUser().updateEmail(email.getText().toString());
+                                        Toast.makeText(passMain.this, "E-mail Updated", Toast.LENGTH_LONG).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(passMain.this, "Password Incorrect", Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
-                            // validate password of the user
-                            EditText password = view.findViewById(R.id.updateEmailPass);
-
-                            String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-                            firebaseAuth.signInWithEmailAndPassword(userEmail, password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                                @Override
-                                public void onSuccess(AuthResult authResult) {
-                                    firebaseAuth.getCurrentUser().updateEmail(email.getText().toString());
-                                    Toast.makeText(passMain.this, "E-mail Updated", Toast.LENGTH_LONG).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(passMain.this, "Password Incorrect", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }
-                    }).setNegativeButton("Cancel", null)
-                    .setView(view)
-                    .create().show();
+                        }).setNegativeButton("Cancel", null)
+                        .setView(view)
+                        .create().show();
+            } else {
+                Toast.makeText(passMain.this,"You are using a temporary account so this feature cannot be used", Toast.LENGTH_SHORT).show();
+            }
         }
         if(item.getItemId() == R.id.logoutAccount){
             checkUser();

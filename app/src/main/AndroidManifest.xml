@@ -12,7 +12,8 @@
         <activity android:name=".EditPass" android:theme="@style/Theme.PassTheNote.NoActionBar"></activity>
         <activity
             android:name=".AddNewPass"
-            android:theme="@style/Theme.PassTheNote.NoActionBar" />
+            android:theme="@style/Theme.PassTheNote.NoActionBar"
+            android:parentActivityName=".passMain"/>
         <activity
             android:name=".DetailsPass"
             android:theme="@style/Theme.PassTheNote.NoActionBar" />

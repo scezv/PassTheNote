@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -82,7 +83,8 @@ public class AddNewNote extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(AddNewNote.this, "Note Added.", Toast.LENGTH_SHORT).show();
-                onBackPressed();
+                startActivity(new Intent(getApplicationContext(), notesMain.class));
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

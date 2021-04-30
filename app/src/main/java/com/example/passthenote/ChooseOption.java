@@ -70,6 +70,9 @@ public class ChooseOption extends AppCompatActivity {
                             }).setNegativeButton("Cancel", null)
                             .setView(view)
                             .create().show();
+                } else {
+                    startActivity(new Intent(getApplicationContext(), passMain.class));
+                    finish();
                 }
             }
         });

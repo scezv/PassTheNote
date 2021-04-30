@@ -83,6 +83,10 @@ public class EmailVerification extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), ChooseOption.class));
             finish();
         }
+        if(firebaseAuth.getCurrentUser().isAnonymous()){
+            startActivity(new Intent(getApplicationContext(), ChooseOption.class));
+            finish();
+        }
     }
     //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
