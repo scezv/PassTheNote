@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,9 +23,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class AddNewPass extends AppCompatActivity {
     private EditText passPlatform, passPassword;
+    Button passGenerator;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,28 @@ public class AddNewPass extends AppCompatActivity {
 
         passPlatform = findViewById(R.id.add_pass_platform);
         passPassword = findViewById(R.id.add_pass_password);
+        passGenerator = findViewById(R.id.passGenBtn);
+        passGenerator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pass = generatePassword();
+                passPassword.setText(pass);
+                Toast.makeText(AddNewPass.this, "Random Password Generator", Toast.LENGTH_SHORT).show();
+            }
+        });
+        
     }
+
+    private String generatePassword() {
+            String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi"
+                    +"jklmnopqrstuvwxyz!@#$%&";
+            Random rnd = new Random();
+            StringBuilder sb = new StringBuilder(10);
+            for (int i = 0; i < 10; i++)
+                sb.append(chars.charAt(rnd.nextInt(chars.length())));
+            return sb.toString();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();

@@ -58,5 +58,11 @@
             android:hint="Password"
             android:inputType="textMultiLine" />
 
+        <Button
+            android:id="@+id/passGenBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generate" />
+
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
